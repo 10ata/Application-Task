@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(240, 240, 240);
+}
+
+#mainContainer.container {
+    background-color: white;
+    min-height: 900px;
+    margin-top: 80px;
+}
