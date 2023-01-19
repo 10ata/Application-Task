@@ -13,6 +13,7 @@ class ServiceFormatter extends Formatter
             'name' => 'name',
             'country' => 'country',
             'application_title' => 'application_title',
+            'description' => 'description',
             'application_id' => 'application_id',
             'service_id' => 'service_id',
             'date_ordered' => 'date_ordered',

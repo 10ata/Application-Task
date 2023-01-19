@@ -24,7 +24,7 @@ class ApplicationService extends AbstractModel
         $one_week_ago->modify('-7 days');
         $one_week_ago_formatted = $one_week_ago->format("Y-m-d H:i:s");
         
-        $query = "SELECT COUNT(*) as count, S.name, C.name AS country, A.title AS application_title, SA.date_ordered ";
+        $query = "SELECT COUNT(*) as count, S.name, C.name AS country, S.description ";
         $query .="FROM ent_application_service AS SA ";
         $query .="JOIN ent_service AS S ";
         $query .="ON S.id = SA.service_id ";

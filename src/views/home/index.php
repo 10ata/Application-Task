@@ -9,8 +9,7 @@
                 <th scope="col">Count</th>
                 <th scope="col">Name</th>
                 <th scope="col">Country</th>
-                <th scope="col">Application Title</th>
-                <th scope="col">Date Ordered</th>
+                <th scope="col">Service Description</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,8 +18,7 @@
                         <th scope="row"><?=$service['count']?></th>
                         <td><?=$service['name']?></td>
                         <td><?=$service['country']?></td>
-                        <td><?=$service['application_title']?></td>
-                        <td><?=$service['date_ordered']?></td>
+                        <td><?=$service['description']?></td>
                     </tr>
                 <?php } ?>
             </tbody>
