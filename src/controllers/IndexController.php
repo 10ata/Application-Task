@@ -22,4 +22,13 @@ class IndexController extends AbstractController
         $test = 1;
         $this->render('home/index', ['test' => 1, 'services' => $application_service_formatted]);
     }
+
+    public function logoutAction()
+    {
+        echo $_SERVER['SERVER_NAME'];
+        echo $_SERVER['REQUEST_URI'];
+        echo $_SERVER['HTTP_HOST'];die;
+        session_unset();
+        session_destroy();
+    }
 }
