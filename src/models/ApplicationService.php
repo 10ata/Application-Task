@@ -65,4 +65,22 @@ class ApplicationService extends AbstractModel
 
         return $result;
     }
+
+    public function getByApplicationIdAndServiceId($id, $service_id, $throw = false)
+    {
+        $params = [
+            'conditions' => 'application_id = :application_id: AND service_id = :service_id:',
+            'bind' => ['application_id' => $id, 'service_id' => $service_id],
+            'limit' => 1,
+            'order' => 'date_ordered DESC'
+        ];
+
+        $result = $this->findFirst($params);
+
+        if ($throw && empty($result)) {
+            throw new \Exception("getByApplicationId failed!");
+        }
+
+        return $result;
+    }
 }

@@ -43,12 +43,13 @@ abstract class AbstractModel
 
     public function save($data = null)
     {
-        return $this->dbManager->execute($this->mapFieldsToQuery());
+        return $this->dbManager->execute($this->mapFieldsToQuery($data));
     }
 
     public function delete()
     {
-
+        $query = "DELETE FROM  `" . $this->getSource() . "` WHERE id = " . $this->id .  ";";
+        return $this->dbManager->execute($query);
     }
 
     public function getById($id, $throw = false)
@@ -64,11 +65,25 @@ abstract class AbstractModel
         if ($throw && empty($entity)) {
             throw new \Exception("Entity `" . get_class($this) . "` with ID `$id` is not found from the DB!");
         }
+
+        $this->fields = get_object_vars($this);
+        unset($this->fields['dbManager']);
+        unset($this->fields['fields']);
+
         return $entity;
     }
 
-    private function mapFieldsToQuery()
+    private function mapFieldsToQuery($data = null)
     {
+        foreach ($data ?? [] as $field => $value) {
+            if (isset($this->fields[$field])) {
+                $this->fields[$field] = $value;
+            }
+            if (isset($this->{$field})) {
+                $this->{$field} = $value;
+            }
+        }
+
         if (isset($this->fields['id']))
         {
 
@@ -90,7 +105,7 @@ abstract class AbstractModel
           // INSERT INTO $this->table $this->fields;
           $query = "INSERT INTO `" . $this->getSource() . "` (";
             foreach($this->fields ?? [] as $field => $value) {
-                if ($field == 'id') {
+                if ($field == 'id' || $this->$field == null) {
                     continue;
                 }
                 $query .= "$field, ";
@@ -100,7 +115,7 @@ abstract class AbstractModel
             $query .= ') VALUES (';
 
             foreach($this->fields ?? [] as $field => $value) {
-                if ($field == 'id') {
+                if ($field == 'id' || $this->$field == null) {
                     continue;
                 }
                 $value = is_numeric($this->$field) ? $this->$field : "'" . $this->$field . "'";

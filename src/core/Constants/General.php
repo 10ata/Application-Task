@@ -8,6 +8,7 @@ class General
     const METHOD_SUFFIX = 'Action';
     const CONTROLLERS_DIR = "src\controllers\\";
     const MODELS_DIR = "src\Models\\";
+    const MODULES_DIR = "src\Modules\\";
     const FORMATTERS_DIR = "src\\formatters\\";
 
     const GENDER_MAP = [
@@ -20,4 +21,8 @@ class General
         2 => 'Closed',
         3 => 'Cancelled'
     ];
+
+    const APPLICATION_STATUS_OPEN = 1;
+    const APPLICATION_STATUS_CLOSED = 2;
+    const APPLICATION_STATUS_CANCELLED = 3;
 }

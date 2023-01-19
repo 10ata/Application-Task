@@ -9,7 +9,7 @@
             <form action="<?=$is_add ? '/application/add' : '/application/edit/' . $application['id']?>" method="post">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Summary</h5>
+                        <h5 class="card-title">Summary</h5><hr>
                         <div class="mb-1">
                             <label for="title" class="form-label">Application Title</label>
                             <input type="text" name="title" class="form-control" id="title" value="<?=$application['title'] ?? ''?>">
@@ -46,7 +46,7 @@
                 <?php if (!$is_add) { ?>
                     <div class="card mt-3">
                         <div class="card-body">
-                            <h5 class="card-title">Status</h5>
+                            <h5 class="card-title">Status</h5><hr>
                             <div class="progress">
                                 <div class="progress-bar <?php if ($application['status_id']==2) { echo 'bg-success'; } elseif ($application['status_id'] == 3) { echo 'bg-danger'; } ?>" style="width:<?php echo $application['status_id'] == 1 ? '33' : '100'; ?>%;" role="progressbar" aria-valuenow="<?=$application['status_id']?>" aria-valuemin="0" aria-valuemax="100"><?=$application['status']?></div>
                             </div>
@@ -56,22 +56,22 @@
                     <?php if ($application['status_id'] == 1) { ?>
                         <div class="card mt-3">
                             <div class="card-body">
-                                <h5 class="card-title">Manage Application</h5>
+                                <h5 class="card-title">Manage Application</h5><hr>
                                 <a href="/application/close/<?=$application['id']?>" class="btn btn-info">Close Application</a>
                                 <a href="/application/cancel/<?=$application['id']?>" class="btn btn-danger">Cancel Application</a>
-                                
                             </div>
                         </div>
                     <?php } ?>
+                    
                 <?php } ?>
 
                 <div class="card mt-3">
                     <div class="card-body">
-                        <h5 class="card-title">Services</h5>
+                        <h5 class="card-title">Services</h5><hr>
 
                         <select name="services[]" class="form-select" size="5" multiple aria-label="multiple select example">
                             <?php foreach($services ?? [] as $service) {?>
-                                <option id="<?=$service['id']?>" name="<?=$service['id']?>"<?=isset($application['services'][$service['id']]) ? 'selected' : ''?>><?=$service['name']?></option>
+                                <option value="<?=$service['id']?>"<?=isset($application['services'][$service['id']]) ? 'selected' : ''?>><?=$service['name']?></option>
                             <?php } ?>
                         </select>
                     </div>

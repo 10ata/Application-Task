@@ -93,9 +93,8 @@ class DBManager
         }
     }
 
-    //https://www.w3schools.com/php/php_mysql_update.asp
     //For insert, update
-    public function execute($query = null): bool
+    public function execute($query = null): mixed
     {
         if (!empty($query)) {
             $this->query = $query;
