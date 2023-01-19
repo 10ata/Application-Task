@@ -4,13 +4,13 @@ Before running the code, make sure to:<br>
 -run `composer install`<br>
 -add vhost entry to apache vhost configuration (I used XAMPP but you can use any other Web server with apache):<br>
 
-`<VirtualHost *:80><br>
+<VirtualHost *:80><br>
     ServerAdmin stoyan.rachev.4@gmail.com<br>
     DocumentRoot "C:/xampp/htdocs/Tasks/ApplicationTask/public"<br>
     ServerName localhost<br>
     ErrorLog "logs/ApplicationTask-error.log"<br>
     CustomLog "logs/ApplicationTask-access.log" common<br>
-</VirtualHost>`<br>
+</VirtualHost><br>
 
 -change path in public folder, .htaccess file `RewriteBase /Tasks/ApplicationTask/public/` (line 4) to your own, leaving public suffix there.<br>
 -run the .sql from the root directory (db.sql)<br>
