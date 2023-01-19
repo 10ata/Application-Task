@@ -14,9 +14,11 @@ Before running the code, make sure to:
 -run the .sql from the root directory (db.sql)
 -change MySQL config from src/configs/development/config.php
 
+Upon successful code deployment, you may now navigate to localhost (or the used domain for configuration)
+and you can login with the created user with email: `stoyan.rachev.4@gmail.com` and password `admin`
 
 Code functionalities could be improved my:
--implementing a DB Cacher but I did not have time to implement it unfortunately.
+-implementing a DB Cacher and DB Logger but I did not have time to implement it unfortunately.
 -implementing modules classes to help cleaning the code in the controllers for Models work (get, insert, upsert, format).
 
 I have created one PHPUnit test and you can run it by executing `.\vendor\bin\phpunit` in root dir
