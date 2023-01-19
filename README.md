@@ -13,8 +13,8 @@ Before running the code, make sure to:<br>
 `</VirtualHost>`<br>
 
 -change path in public folder, .htaccess file `RewriteBase /Tasks/ApplicationTask/public/` (line 4) to your own, leaving public suffix there.<br>
--run the .sql from the root directory (db.sql)<br>
--change MySQL config from src/configs/development/config.php<br>
+-run the .sql from the root directory (`db.sql`)<br>
+-change MySQL config from `src/configs/development/config.php`<br>
 
 Upon successful code deployment, you may now navigate to localhost (or the used domain for configuration)<br>
 and you can login with the created user with email: `stoyan.rachev.4@gmail.com` and password `admin`<br>
