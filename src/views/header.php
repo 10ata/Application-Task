@@ -19,18 +19,20 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/application/filter">Applications</a>
                         </li>
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            User
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <?php if (!isset($_SESSION['user'])) { ?>
-                                <li><a class="dropdown-item" href="/index/login">Login</a></li>
-                            <?php } else { ?>
-                                <li><a class="dropdown-item" href="/index/logout">Log Out</a></li>
-                            <?php } ?>
-                        </ul>
-                        </li>
+                        <?php if (!isset($_SESSION['user'])) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/index/login">Login</a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hi <?=$_SESSION['user']['first_name'] ?>!
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="/index/logout">Log Out</a></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
