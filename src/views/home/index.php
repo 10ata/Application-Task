@@ -1,6 +1,9 @@
 <?php include(VIEWS_DIR . 'header.php'); ?>
 
 <div class="row justify-content-md-center mt-5">
+    <?php if (isset($_SESSION['errorMessage'])) { ?>
+        <div class="col-10 mb-2"><span class="text-danger"><?=$_SESSION['errorMessage']?></span></div>
+    <?php unset($_SESSION["errorMessage"]); } ?>
     <div class="col-10">
         <h3 class="text-center">Top 3 Service Orders Trend for the past 7 days</h3>
         <table class="table table-hover table-striped">

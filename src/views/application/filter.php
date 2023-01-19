@@ -6,24 +6,36 @@
             <h3 class="text-center">Please <a class="btn btn-info btn-sm" href="/index/login">Login</a> in order to see this information</h3>
         <?php } else { ?>
             <h3 class="text-center">Filter Applications</h3>
+            <a class="mb-3 float-end btn btn-success" href="/application/add">Add new Application<a>
             <table class="table table-hover table-striped">
                 <thead class="bg-dark text-white">
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Application Title</th>
-                    <th scope="col">Date Ordered</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">DOB</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($services ?? [] as $service) {?>
+                    <?php foreach($applications ?? [] as $application) {?>
                         <tr>
-                            <th scope="row"><?=$service['count']?></th>
-                            <td><?=$service['name']?></td>
-                            <td><?=$service['country']?></td>
-                            <td><?=$service['application_title']?></td>
-                            <td><?=$service['date_ordered']?></td>
+                            <th><?=$application['title']?></th>
+                            <th><?=$application['first_name']?></th>
+                            <td><?=$application['last_name']?></td>
+                            <td><?=$application['gender']?></td>
+                            <th><?=$application['dob']?></th>
+                            <td><?=$application['status']?></td>
+                            <td><?=$application['date_added']?></td>
+                            <td>
+                                <?php if ($application['status'] == 'Open') { ?>
+                                    <a class="btn btn-success btn-sm" href="/application/edit/<?=$application['id']?>">Edit<a>
+                                <?php } ?>
+                                <a class="btn btn-success btn-sm" href="/application/view/<?=$application['id']?>">View<a>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

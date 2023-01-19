@@ -136,27 +136,35 @@ abstract class AbstractModel
 
         $instruction = 'SELECT * FROM ';
         //from proeprty
-        $where = $parameters['conditions'];
+        $where = $parameters['conditions'] ?? null;
 
-        if (empty($where)) {
+        /*if (empty($where)) {
             throw new \Exception("Caugh MySQL Exception while preparing statement: Conditions parameters are empty!");
-        }
+        }*/
 
-        preg_match_all('/(:.*?:)/', $parameters['conditions'], $matches);
-        if (count($matches) > 0) {
-        	 foreach($matches[0] ?? [] as $match)
-	        {
-	            $val = "'" . $parameters['bind'][trim($match, ':')] . "'";
-	            $where = str_replace($match, $val, $where);
-	        }
-
-            
-        	if (str_contains($where, ':')) {
-                throw new \Exception("Caugh MySQL Exception while preparing statement: Not all bind parameters were given!");
+        if (!empty($where)) {
+            preg_match_all('/(:.*?:)/', $parameters['conditions'], $matches);
+            if (count($matches) > 0) {
+                 foreach($matches[0] ?? [] as $match)
+                {
+                    $val = "'" . $parameters['bind'][trim($match, ':')] . "'";
+                    $where = str_replace($match, $val, $where);
+                }
+    
+                
+                if (str_contains($where, ':')) {
+                    throw new \Exception("Caugh MySQL Exception while preparing statement: Not all bind parameters were given!");
+                }
             }
         }
+        
 
-        $query = $instruction . '`'. $this->getSource() . '` WHERE ' . $where;
+        if (!empty($where)) {
+            $query = $instruction . '`'. $this->getSource() . '` WHERE ' . $where;
+        } else {
+            $query = $instruction . '`'. $this->getSource() . '`';
+        }
+       
 
         if (isset($parameters['order'])) {
             $query.= ' ORDER BY ' . $parameters['order'];
