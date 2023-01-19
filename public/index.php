@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once realpath("../vendor/autoload.php");
 use src\core\App;
 

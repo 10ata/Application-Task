@@ -20,15 +20,40 @@ class IndexController extends AbstractController
         }
         
         $test = 1;
-        $this->render('home/index', ['test' => 1, 'services' => $application_service_formatted]);
+        $this->render('home/index', ['services' => $application_service_formatted]);
+    }
+
+    public function loginAction()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userModel = $this->modelLoader->load("User");
+            $user = $userModel->getByEmailAndPassword($_POST['email'], $_POST['password']);
+            
+            if (empty($user)) {
+                $_SESSION["errorMessage"] = "Invalid Credentials";
+                header("Location: http://" . $_SERVER['SERVER_NAME'] . "/index/login");
+                exit();
+            }
+    
+            $_SESSION["user"] = (array)$user;
+            header("Location: http://" . $_SERVER['SERVER_NAME'] . $_SESSION['previous_location'][0] ?? '/');
+            exit();
+        }
+        else if (isset($_SESSION["user"])) {
+            header("Location: http://" . $_SERVER['SERVER_NAME'] . "/");
+            exit();
+        }
+        else {
+            $this->render('login/index', []);
+        }
+        
     }
 
     public function logoutAction()
     {
-        echo $_SERVER['SERVER_NAME'];
-        echo $_SERVER['REQUEST_URI'];
-        echo $_SERVER['HTTP_HOST'];die;
         session_unset();
         session_destroy();
+        header("Location: http://" . $_SERVER['SERVER_NAME'] . "/");
+        exit();
     }
 }

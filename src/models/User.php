@@ -3,6 +3,7 @@
 namespace src\Models;
 
 use src\core\MVC\AbstractModel;
+use src\core\Helpers\General;
 
 class User extends AbstractModel
 {
@@ -31,21 +32,22 @@ class User extends AbstractModel
 
     }
 
-    public function getByCountryName($name, $throw = false)
+    public function getByEmailAndPassword($email, $password, $throw = false)
     {
+        $generalHelper = new General();
+        $password_encrypted = $generalHelper->encryptData($password);
         $params = [
-            'conditions' => 'name = :country:',
-            'bind' => ['country' => $name],
-            'limit' => 1,
-            'order' => 'name DESC'
+            'conditions' => 'email = :email: AND password = :password:',
+            'bind' => ['email' => $email, 'password' => $password_encrypted],
+            'limit' => 1
         ];
 
-        $country = $this->findFirst($params);
+        $user = $this->findFirst($params);
 
-        if ($throw && empty($country)) {
-            throw new \Exception("Country `$name` is not found!");
+        if ($throw && empty($user)) {
+            throw new \Exception("User with email: `$email` is not found!");
         }
 
-        return $country;
+        return $user;
     }
 }
