@@ -41,7 +41,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Status</h5>
                     <div class="progress">
-                        <div class="progress-bar" style="width:<?=$application['status_id']*33.33?>%;" role="progressbar" aria-valuenow="<?=$application['status_id']?>" aria-valuemin="0" aria-valuemax="100"><?=$application['status']?></div>
+                        <div class="progress-bar <?php if ($application['status_id']==2) { echo 'bg-success'; } elseif ($application['status_id'] == 3) { echo 'bg-danger'; } ?>" style="width:<?php echo $application['status_id'] == 1 ? '33' : '100'; ?>%;" role="progressbar" aria-valuenow="<?=$application['status_id']?>" aria-valuemin="0" aria-valuemax="100"><?=$application['status']?></div>
                     </div>
                 </div>
             </div>

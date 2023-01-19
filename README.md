@@ -15,7 +15,9 @@ Before running the code, make sure to:
 -change MySQL config from src/configs/development/config.php
 
 
-
+Code functionalities could be improved my:
+-implementing a DB Cacher but I did not have time to implement it unfortunately.
+-implementing modules classes to help cleaning the code in the controllers for Models work (get, insert, upsert, format).
 
 I have created one PHPUnit test and you can run it by executing `.\bin\phpunit tests` in root dir
 
