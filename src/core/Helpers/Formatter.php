@@ -2,6 +2,8 @@
 
 namespace src\core\Helpers;
 
+//formatter class where it is being extended by other formatter classes.
+//used for formatting data between entities and DB result, etc.
 class Formatter
 {
     private $method = null;

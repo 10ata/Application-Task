@@ -43,7 +43,13 @@ abstract class AbstractModel
 
     public function save($data = null)
     {
-        return $this->dbManager->execute($this->mapFieldsToQuery($data));
+        $result = $this->dbManager->execute($this->mapFieldsToQuery($data));
+
+        if ($this->id == null) {
+            $this->getLastestId();
+        }
+
+        return $result;
     }
 
     public function delete()
@@ -73,13 +79,33 @@ abstract class AbstractModel
         return $entity;
     }
 
+    public function getLastestId($throw = false)
+    {
+        $params = [
+            'limit' => 1,
+            'order' => 'id DESC'
+        ];
+
+        $entity = $this->findFirst($params);
+
+        if ($throw && empty($entity)) {
+            throw new \Exception("Cannot get Entity `" . get_class($this) . "` Latest ID!");
+        }
+
+        $this->fields = get_object_vars($this);
+        unset($this->fields['dbManager']);
+        unset($this->fields['fields']);
+
+        return $entity;
+    }
+
     private function mapFieldsToQuery($data = null)
     {
         foreach ($data ?? [] as $field => $value) {
             if (isset($this->fields[$field])) {
                 $this->fields[$field] = $value;
             }
-            if (isset($this->{$field})) {
+            if (property_exists($this,$field)) {
                 $this->{$field} = $value;
             }
         }

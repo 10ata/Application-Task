@@ -9,7 +9,7 @@ use src\formatters\ServiceFormatter;
 
 class IndexController extends AbstractController
 {
-    
+    //home page, prepare table stats
     public function indexAction($test = null)
     {
         $applicationServiceModel = $this->modelLoader->load("ApplicationService");
@@ -23,25 +23,22 @@ class IndexController extends AbstractController
         $this->render('home/index', ['services' => $application_service_formatted]);
     }
 
+    //login (GET/POST)
     public function loginAction()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($this->isPost()) {
             $userModel = $this->modelLoader->load("User");
             $user = $userModel->getByEmailAndPassword($_POST['email'], $_POST['password']);
             
             if (empty($user)) {
-                $_SESSION["errorMessage"] = "Invalid Credentials";
-                header("Location: http://" . $_SERVER['SERVER_NAME'] . "/index/login");
-                exit();
+                return $this->redirect("/index/login", "Invalid Credentials!", true);
             }
     
             $_SESSION["user"] = (array)$user;
-            header("Location: http://" . $_SERVER['SERVER_NAME'] . $_SESSION['previous_location'][0] ?? '/');
-            exit();
+            return $this->redirect($_SESSION['previous_location'][0] ?? '/');
         }
         else if (isset($_SESSION["user"])) {
-            header("Location: http://" . $_SERVER['SERVER_NAME'] . "/");
-            exit();
+            return $this->redirect("/");
         }
         else {
             $this->render('login/index', []);
@@ -49,11 +46,11 @@ class IndexController extends AbstractController
         
     }
 
+    //logout, destroy session and session variables
     public function logoutAction()
     {
         session_unset();
         session_destroy();
-        header("Location: http://" . $_SERVER['SERVER_NAME'] . "/");
-        exit();
+        return $this->redirect("/");
     }
 }

@@ -5,6 +5,8 @@ namespace src\core;
 use src\core\Helpers\ControllersLoader;
 use src\core\Constants\General;
 
+//Application class for handling the URLs and calling the controllers with their methods (for routing)
+//the main public/index.php calls this.
 class App
 {
     protected $url = [];

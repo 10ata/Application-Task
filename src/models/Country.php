@@ -15,17 +15,22 @@ class Country extends AbstractModel
         return 'par_country';
     }
 
-    public function getById($id, $throw = false)
+    public function getByIso2($iso2, $throw = false)
     {
         $params = [
-            'conditions' => 'name = :country: AND ',
-            'bind' => ['country' => 'Bulgaria'],
+            'conditions' => 'iso2 = :iso2:',
+            'bind' => ['iso2' => $iso2],
             'limit' => 1,
             'order' => 'name DESC'
         ];
 
-        return $country;
+        $country = $this->findFirst($params);
 
+        if ($throw && empty($country)) {
+            throw new \Exception("Country `$name` is not found!");
+        }
+
+        return $country;
     }
 
     public function getByCountryName($name, $throw = false)

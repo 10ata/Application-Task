@@ -6,6 +6,8 @@ use src\core\Helpers\ConfigLoader;
 use src\core\Helpers\ModelLoader;
 use src\core\Helpers\ModuleLoader;
 use src\core\Helpers\FormatterLoader;
+
+//this is the abstract controller class with main functionalities used in main controllers (IndexController, ApplicationController)
 abstract class AbstractController
 {
     protected $modelLoader;

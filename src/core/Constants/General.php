@@ -1,7 +1,7 @@
 <?php
 
 namespace src\core\Constants;
-
+//generic constants to avoid repeating the same values.
 class General
 {
     const CONTROLLER_SUFFIX = 'controller';

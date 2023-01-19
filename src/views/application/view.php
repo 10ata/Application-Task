@@ -5,7 +5,11 @@
         <?php if (!isset($_SESSION['user'])) { ?>
             <h3 class="text-center">Please <a class="btn btn-info btn-sm" href="/index/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a> in order to see this information</h3>
         <?php } else { ?>
-            <h3 class="text-center">View Application <?=$application['title'] ?? 'N/A' ?></h3>
+            <div class="row">
+                <h3><i class="fa-regular fa-eye"></i> View Application "<?=$application['title'] ?? 'N/A' ?>"
+                    <a class="mb-3 float-end btn btn-info" href="/application/filter"><i class="fa-solid fa-caret-left"></i> Go Back<a>
+                </h3>
+            </div>
             
             <div class="card">
                 <div class="card-body">
@@ -41,7 +45,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Status</h5><hr>
                     <div class="progress">
-                        <div class="progress-bar <?php if ($application['status_id']==2) { echo 'bg-success'; } elseif ($application['status_id'] == 3) { echo 'bg-danger'; } ?>" style="width:<?php echo $application['status_id'] == 1 ? '33' : '100'; ?>%;" role="progressbar" aria-valuenow="<?=$application['status_id']?>" aria-valuemin="0" aria-valuemax="100"><?=$application['status']?></div>
+                        <div class="progress-bar progress-bar-animated progress-bar-striped <?php if ($application['status_id']==2) { echo 'bg-success'; } elseif ($application['status_id'] == 3) { echo 'bg-danger'; } ?>" style="width:<?php echo $application['status_id'] == 1 ? '33' : '100'; ?>%;" role="progressbar" aria-valuenow="<?=$application['status_id']?>" aria-valuemin="0" aria-valuemax="100"><?=$application['status']?></div>
                     </div>
                 </div>
             </div>
@@ -59,7 +63,7 @@
 
             <div class="card mt-3">
                 <div class="card-body">
-                    <h5 class="card-title">Services</h5><hr>
+                    <h5 class="card-title">Assigned Services</h5><hr>
                         <table class="table table-hover table-striped">
                             <thead class="bg-dark text-white">
                                 <tr>

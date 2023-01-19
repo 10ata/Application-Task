@@ -1,7 +1,7 @@
 <?php
 
 namespace src\core\Helpers;
-
+//used for user password encryption
 class General
 {
     private $encryption_iv = '9fa1fe272a4147786583fc5a18894831';

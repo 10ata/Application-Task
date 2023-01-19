@@ -5,8 +5,9 @@
         <?php if (!isset($_SESSION['user'])) { ?>
             <h3 class="text-center">Please <a class="btn btn-info btn-sm" href="/index/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a> in order to see this information</h3>
         <?php } else { ?>
-            <h3><i class="fa-solid fa-filter"></i>Filter Applications</h3>
-            <a class="mb-3 float-end btn btn-success" href="/application/add">Add new Application<a>
+            <h3><i class="fa-solid fa-filter"></i>Filter Applications
+                <a class="mb-3 float-end btn btn-success" href="/application/add"><i class="fa-solid fa-file-circle-plus"></i> Add new Application<a>
+            </h3>
             <table class="table table-hover table-striped">
                 <thead class="bg-dark text-white">
                     <tr>
@@ -32,9 +33,9 @@
                             <td><?=$application['date_added']?></td>
                             <td>
                                 <?php if ($application['status'] == 'Open') { ?>
-                                    <a class="btn btn-warning btn-sm" href="/application/edit/<?=$application['id']?>">Edit<a>
+                                    <a class="btn btn-warning btn-sm" href="/application/edit/<?=$application['id']?>"><i class="fa-regular fa-pen-to-square"></i> Edit<a>
                                 <?php } ?>
-                                <a class="btn btn-info btn-sm" href="/application/view/<?=$application['id']?>">View<a>
+                                <a class="btn btn-info btn-sm" href="/application/view/<?=$application['id']?>"><i class="fa-regular fa-eye"></i> View<a>
                             </td>
                         </tr>
                     <?php } ?>

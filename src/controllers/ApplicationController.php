@@ -10,7 +10,7 @@ use src\core\Constants\General;
 
 class ApplicationController extends AbstractController
 {
-    
+    //filter action (main route)
     public function indexAction($test = null)
     {
         $this->filterAction();
@@ -27,11 +27,13 @@ class ApplicationController extends AbstractController
         $this->render('application/filter', ['applications' => $applications_formatted]);
     }
 
+    //add Application
     public function addAction()
     {
         return $this->manageOperation(true);
     }
 
+    //edit Application
     public function editAction($id)
     {
         return $this->manageOperation(false, $id);
@@ -39,12 +41,20 @@ class ApplicationController extends AbstractController
 
     public function managePostOperation($is_add, $id = null)
     {
+        //if not logged in, deny
+        if (!isset($_SESSION['user'])) {
+            return $this->redirect("/index/login", "Please login first!", true);
+        }
+
+        //load models from singleton loader classes
         $applicationModel = $this->modelLoader->load("Application");
         $applicationServiceModel = $this->modelLoader->load("ApplicationService");
         $serviceModel = $this->modelLoader->load("Service");
 
+        //get post request data
         $request_data = $this->getRequestedData();
             
+        //validate services if they exist in MySQL
         foreach($request_data['services'] ?? [] as $service_id) {
             $service = $serviceModel->getById($service_id);
             if (empty($service)) {
@@ -52,8 +62,12 @@ class ApplicationController extends AbstractController
             }
         }
 
+        //check if we add or edit. if we are adding, we need to create a new application
         if ($is_add) {
             $application = new Application();
+            $application->user_id = $_SESSION['user']['id'];
+            $application->status = 1;
+        //edit - save. Update application and upsert services.
         } else {
             if (!isset($id)) {
                 return $this->redirect("/", "Invalid Application ID Provided", true);
@@ -95,6 +109,8 @@ class ApplicationController extends AbstractController
         return $this->redirect("/application/edit/" . $application->id, "Application Saved Successfully!");
     }
 
+    //prepare data for UI. Get application, get application related services, etc (if we edit).
+    //If not, just return the available services (if we add application)
     public function manageGetOperation($is_add, $id = null)
     {
 
@@ -166,8 +182,14 @@ class ApplicationController extends AbstractController
         return $this->changeStatus($id, $status);
     }
 
+    //change application status on Close, Cancel, Unlock buttons.
     public function changeStatus($id, $status)
     {
+        //if not logged in, deny
+        if (!isset($_SESSION['user'])) {
+            return $this->redirect("/index/login", "Please login first!", true);
+        }
+
         $applicationModel = $this->modelLoader->load("Application");
         $application = $applicationModel->getById($id);
 
@@ -182,6 +204,7 @@ class ApplicationController extends AbstractController
         return $this->redirect("/application/$action/" . $id, "Status updated successfully!");
     }
 
+    //view application, prepare data for UI
     public function viewAction($id = null)
     {
         if (!isset($id)) {

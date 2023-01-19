@@ -2,13 +2,15 @@
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="/css/theme.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
         <script src="https://kit.fontawesome.com/fd767fcd9f.js" crossorigin="anonymous"></script>
+        <title>Application Task - Stoyan</title>
     </head>
 
     <body>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">Applications Task</a>
+                <a class="navbar-brand" href="/"><img src="/img/logo.png" width="30" height="30" alt=""> Applications Task</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

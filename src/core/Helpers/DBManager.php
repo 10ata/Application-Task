@@ -4,6 +4,7 @@ namespace src\core\Helpers;
 
 use src\core\Helpers\ConfigLoader;
 
+//DBManager is the core MySQL engine between PHP and DB.
 class DBManager
 {
     /**
